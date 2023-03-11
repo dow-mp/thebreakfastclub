@@ -50,7 +50,7 @@ export const CardData = () => {
             <div className="mt-2 grid grid-cols-1 gap-4  p-3 sm:grid-cols-1 md:grid-cols-2 md:p-6 lg:grid-cols-3 lg:w-full lg:px-6 lg:gap-6 xl:grid-cols-4 2xl:px-20 2xl:gap-8">
                 {Object.entries(groupedData).map(([_id, exams]) => (
                     <button
-                        key={_id}
+                        key={Math.ceil(Math.random() * 10000)+_id+Math.ceil(Math.random() * 10000)}
                         className=" flex items-center justify-center border-2 border-zinc-200 bg-zinc-100 rounded-lg shadow-xl hover:shadow-2xl focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transform transition hover:-translate-y-1 hover:scale-105 h-24  md:h-28 lg:h-36 2xl:h-60"
                         onClick={() => handleButtonClick(_id)}
                     >
@@ -71,13 +71,12 @@ export const CardData = () => {
                                 </tr>
                             </tbody>
                         </table>
-
                     </button>
                 ))}
             </div>
             {/* Modal window */}
             {selectedPatientId && (
-                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-30 backdrop-blur-sm flex justify-center items-center lg:px-16 xl:px-16 2xl:px-20">
+                <div className="fixed top-0 left-0 w-full h-full bg-gray-800 bg-opacity-30 backdrop-blur-sm flex justify-center items-center lg:px-16 xl:px-16 2xl:px-20" key={Math.ceil(Math.random() * 10000)+selectedPatientId+Math.ceil(Math.random() * 10000)}>
                     <div className=" bg-white rounded-xl shadow-md p-4 w-full h-1/2 overflow-y-auto">
                         <div className="flex items-center justify-between  md:px-4 md:pt-4">
                             {/* <button
@@ -116,7 +115,7 @@ export const CardData = () => {
 
                         <div className="flex justify-center items-center 2xl:mt-4 2xl:h-1/2">
                             {groupedData[selectedPatientId].map((exams) => (
-                                <div key={exams._id} className=" border-gray-200 h-full w-full">
+                                <div key={Math.ceil(Math.random() * 10000)+exams._id+Math.ceil(Math.random() * 10000)} className=" border-gray-200 h-full w-full">
                                     <div className="w-full  mb-6 2xl:mb-16">
                                         <table className="flex flex-col items-center xl:gap-y-2 2xl:gap-y-4 2xl:mb-6">
                                             <thead className="w-full">
@@ -233,6 +232,7 @@ export const CardData = () => {
                 </div>
             )}
             {/* <Pagination3/> */}
+    
         </>
     );
 };
