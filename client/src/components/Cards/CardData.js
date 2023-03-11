@@ -16,7 +16,8 @@ export const CardData = () => {
 
     // Fetching data from API using the useEffect Hook starts
     useEffect(() => {
-        fetch("https://tbchealth-api.onrender.com")
+        fetch("https://tbchealth-api.onrender.com/api/everything")
+            // .then(res => console.log(res.body))
             .then((res) => res.json())
             .then((res) => setData(res))
             .catch((error) => console.error("Error:", error));
