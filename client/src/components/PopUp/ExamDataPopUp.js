@@ -14,7 +14,7 @@ export const ExamDataPopUp = ({ currentExam, visible, onClose, examNum }) => {
 
   const handleDeleteExam = (e, id) => {
     console.log(id);
-    fetch(`http://localhost:9000/api/exams/${id}`, {
+    fetch(`https://tbchealth-api.onrender.com/api/exams/${id}`, {
       method: "DELETE",
       body: id,
     })

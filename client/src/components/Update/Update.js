@@ -35,7 +35,7 @@ export const Update = ({ exam, onClose, visible, isVisible, open }) => {
 
   const handleUpdateSubmit = (e, id) => {
     e.preventDefault();
-    fetch(`http://localhost:9000/api/exams/${id}`, {
+    fetch(`https://tbchealth-api.onrender.com/api/exams/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

@@ -18,7 +18,7 @@ export const Search = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get("http://localhost:9000/api/everything");
+        const res = await axios.get("https://tbchealth-api.onrender.com/api/everything");
         setData(res.data);
         setFiltered(res.data);
       } catch (err) {
