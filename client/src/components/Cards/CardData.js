@@ -65,7 +65,7 @@ export const CardData = ({ data, selectedPatientId, setSelectedPatientId }) => {
       {/* Modal window */}
       {selectedPatientId && (
         <div className="fixed flex flex-col justify-center items-center top-0 left-0 w-full h-full bg-gray-800 bg-opacity-30 backdrop-blur-sm ">
-          <div className=" bg-white rounded-xl shadow-lg overflow-y-auto  ">
+          <div className=" bg-white rounded-xl shadow-lg overflow-y-auto p-4 ">
             <div className="flex items-center justify-end 2xl:p-3">
               <button
                 className="transform transition hover:translate-y-1 hover:scale-105 shadow-lg rounded-full text-gray-800 border-2 text-sm p-1 md:text-sm md:p-1.5 lg:text-base lg:p-1.5 xl:text-xl xl:font-bold xl:p-2 2xl:text-lg 2xl:font-bold 2xl:p-2"
@@ -86,11 +86,11 @@ export const CardData = ({ data, selectedPatientId, setSelectedPatientId }) => {
                 </thead>
                 <tbody className="flex flex-col justify-center items-center w-full ">
                   <tr className="">
-                    <td className="w-full text-center text-sm font-semibold whitespace-normal break-words text-gray-500 md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl">
+                    <td className="w-full text-center text-sm font-semibold whitespace-normal break-words text-gray-500 md:text-lg lg:text-xl xl:text-2xl 2xl:text-2xl border-b-4 border-gray-200">
                       {selectedPatientId}
                     </td>
                   </tr>
-                  <hr className="border-b-2 2xl:border-b-4 border-gray-200 w-11/12 mt-2 2xl:mt-6" />
+                  {/* <hr className="border-b-2 2xl:border-b-4 border-gray-200 w-11/12 mt-2 2xl:mt-6" /> */}
                 </tbody>
               </table>
             </div>
@@ -99,11 +99,11 @@ export const CardData = ({ data, selectedPatientId, setSelectedPatientId }) => {
               {groupedData[selectedPatientId].map((exams) => (
                 <div
                   key={exams._id}
-                  className=" border-gray-200 h-full w-full "
+                  className=" border-gray-200 h-full w-full"
                 >
                   <div className="w-full 2xl:pb-16">
                     <table className="flex flex-col items-center ">
-                      <thead className="w-full  2xl:mb-2">
+                      <thead className="w-full px-4 2xl:mb-2">
                         <tr className="grid grid-cols-6 text-center w-full ">
                           <th className="text-sm  font-medium text-gray-900  2xl:text-2xl">
                             Exams
@@ -125,8 +125,8 @@ export const CardData = ({ data, selectedPatientId, setSelectedPatientId }) => {
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="w-full">
-                        <tr className=" grid grid-cols-6 text-center w-full whitespace-normal break-words">
+                      <tbody className="w-full pb-4 px-4 2xl:mb-2">
+                        <tr className=" grid grid-cols-6 text-center w-full whitespace-normal break-words ">
                           <td className="text-sm font-medium text-gray-500 md:text-lg lg:text-xl xl:text-2xl 2xl:text-5xl">
                             {exams.exams.sort().map(function (exam, index) {
                               return (
@@ -137,7 +137,7 @@ export const CardData = ({ data, selectedPatientId, setSelectedPatientId }) => {
                                       setCurrentExam({ exam: exam, index });
                                     }}
                                   >
-                                    <p className="text-sm text-blue-600 hover:font-bold hover:underline font-medium  md:text-lg lg:text-xl xl:text-2xl 2xl:mb-1 2xl:text-xl">
+                                    <p className="text-sm text-blue-600 hover:font-bold hover:underline font-medium  2xl:text-xl">
                                       Exam {index + 1}
                                     </p>
                                   </Link>
@@ -153,19 +153,19 @@ export const CardData = ({ data, selectedPatientId, setSelectedPatientId }) => {
                               );
                             })}
                           </td>
-                          <td className="text-sm font-medium text-gray-500  2xl:text-xl">
+                          <td className="text-sm font-medium text-gray-500 2xl:text-xl">
                             {exams.age}
                           </td>
-                          <td className="text-sm font-medium text-gray-500  2xl:text-xl">
+                          <td className="text-sm font-medium text-gray-500 2xl:text-xl">
                             {exams.sex}
                           </td>
-                          <td className="text-sm font-medium text-gray-500  2xl:text-xl">
+                          <td className="text-sm font-medium text-gray-500 2xl:text-xl">
                             {exams.zip}
                           </td>
-                          <td className="text-sm font-medium text-gray-500  2xl:text-xl">
+                          <td className="text-sm font-medium text-gray-500 2xl:text-xl">
                             {exams.weight}
                           </td>
-                          <td className="text-sm font-medium text-gray-500  2xl:text-xl">
+                          <td className="text-sm font-medium text-gray-500 2xl:text-xl">
                             {exams.bmi}
                           </td>
                         </tr>
