@@ -1,28 +1,26 @@
 import React from "react";
 import { useState, useEffect } from "react";
-import PatientList from "../PatientList/patientsList";
-import PaginatePage from "../Pagination/Pagination";
+import Pagination from "../Pagination/Pagination";
 import axios from "axios";
+import { CardData } from "../Cards/CardData";
 
 export const Search = () => {
   const [query, setQuery] = useState("");
   const [data, setData] = useState([]);
-  const [filtered, setFilterd] = useState([]);
-
-  const [currentPage, setcurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(10);
+  const [filtered, setFiltered] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(16);
+  const [numRows, setNumRows] = useState(4);
+  const [numCols, setNumCols] = useState(4);
+  const [displayedData, setDisplayedData] = useState([]);
+  const [selectedPatientId, setSelectedPatientId] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await axios.get(
-          "http://localhost:9000/api/everything"
-        );
-        console.log(res.data);
-        // setData(res.data.exams);
-        setData(res.data)
-        // setFilterd(res.data.exams);
-        setFilterd(data)
+        const res = await axios.get("http://localhost:9000/api/everything");
+        setData(res.data);
+        setFiltered(res.data);
       } catch (err) {
         throw new Error(err);
       }
@@ -30,66 +28,77 @@ export const Search = () => {
     fetchData();
   }, []);
 
-const results = () => {
-  if (query) {
-    let searchResult = data.filter((record) => {
-      // res.patientId.toLowerCase().includes(query)
-      console.log(`record:`);
-      console.table(record);
-      record._id.includes(query)
-    }
-    );
-    setFilterd(searchResult);
-  } else {
-    return
-  }
-}
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setNumRows(7);
+        setNumCols(1);
+        setPostsPerPage(7);
+      } else if (window.innerWidth <= 768) {
+        setNumRows(5);
+        setNumCols(2);
+        setPostsPerPage(10);
+      } else {
+        setNumRows(4);
+        setNumCols(4);
+        setPostsPerPage(16);
+      }
+    };
+    
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   useEffect(() => {
-    // const results = filtered.filter((res) =>
-    //   res.patientId.toLowerCase().includes(query)
-    // );
-    // setData(results);
-    results()
-  }, [query]);
-  
-  const lastPostIndex = currentPage * postsPerPage;
-  const firstPostIndex = lastPostIndex - postsPerPage;
-  const currentPost = data.slice(firstPostIndex, lastPostIndex);
+    const filteredData = filtered.filter((res) =>
+      res._id.toLowerCase().includes(query)
+    );
+    const lastPostIndex = currentPage * postsPerPage;
+    const firstPostIndex = lastPostIndex - postsPerPage;
+    const currentPost = filteredData.slice(firstPostIndex, lastPostIndex);
+    setDisplayedData(currentPost);
+  }, [query, filtered, currentPage, postsPerPage]);
 
+  const cardDataProps = {
+    data: displayedData,
+    numRows: numRows,
+    numCols: numCols,
+  };
+  
   return (
     <>
-      <div className="md:flex flex-col items-center w-full p-6 hidden">
-        <form action="" className="w-1/2">
+      <div className="grid items-center md:mx-8 ">
+        <form action="" className="flex flex-col justify-center w-3/4 md:w-1/2 mx-auto  py-8 ">
           <label
             htmlFor="default-search"
-            className="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white"
+            className="text-gray-900 sr-only dark:text-white font-medium 2xl:text-2xl"
           >
             Search
           </label>
-          <div className="relative">
+          <div className="relative shadow-lg shadow-stone-600">
             <input
               type="search"
               id="default-search"
               onChange={(e) => setQuery(e.target.value)}
-              className="block w-full p-3 pl-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              className=" block w-full rounded-md text-[#393939] border border-gray-300  bg-[#FFFFFF] focus:outline-none pl-3 py-1 text-sm md:py-1.5 md:pl-4 md:text-base 2xl:pl-6 2xl:py-2 2xl:text-xl  "
               placeholder="Search Exams..."
               required
             />
-            <button
-              type="submit"
-              className="text-white absolute right-1.5 bottom-1 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Search
-            </button>
           </div>
         </form>
-        {/* <PatientList data={currentPost} /> */}
-        {/* <PaginatePage
+        <CardData 
+          data={displayedData}
+          selectedPatientId={selectedPatientId}
+          setSelectedPatientId={setSelectedPatientId}
+        />
+        {!selectedPatientId && <Pagination
           totalPosts={data.length}
           postsPerPage={postsPerPage}
-          setCurrentPage={setcurrentPage}
-        /> */}
+          setCurrentPage={setCurrentPage}
+        />}
       </div>
     </>
   );

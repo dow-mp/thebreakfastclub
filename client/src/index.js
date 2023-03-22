@@ -1,28 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { Route, createBrowserRouter, RouterProvider, createRoutesFromElements } from 'react-router-dom';
-import { CreateExamForm } from './components/Create/CreateExamForm';
-import { Edit } from './components/Edit/Edit';
-import reportWebVitals from './reportWebVitals';
-import { Exams } from './components/Exams/Exams';
-import {TestForm} from '../src/components/Create/TestForm'
-import './index.css';
-import App from './App';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import reportWebVitals from "./reportWebVitals";
+import { CreateExam } from "./components/Create/CreateExam";
+import "./index.css";
+import App from "./App";
 
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <>
-      <Route 
-        path="/" 
-        element={<App />}
-          >
-      </Route>
-      <Route path="create-exam" element={<TestForm />}></Route>
-   </>
-    )
-  );
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <App/>,
+  },
+  {
+    path: "create-exam",
+    element: <CreateExam/>,
+  },
+]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />

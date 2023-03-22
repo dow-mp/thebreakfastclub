@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { FaBars, FaTimes} from 'react-icons/fa';
-import { SearchMobile } from '../Search/SearchMobile';
+import { useState } from "react";
+import { NavLink, Outlet } from "react-router-dom";
+import { FaBars, FaTimes } from "react-icons/fa";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,73 +14,56 @@ export const Navbar = () => {
   };
 
   return (
-      <nav className="bg-gray-900">
-        <div className=" max-w-full mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16 text-base md:text-2xl font-bold">
-            <div>
+    <header className=" py-2 md:py-4 xl:py-6 2xl:py-4 shadow-lg shadow-stone-600 rounded-b-lg" id="header">
+        <nav className=" flex items-center justify-between  py-2 px-3 md:py-3 md:px-6 xl:py-3 xl:px-8 2xl:py-4 2xl:px-12">
+          <div className="flex items-center">
+            <NavLink
+              to="/"
+              className="text-[#060957] bg-[#ffffff] font-extrabold font-ubuntu  rounded-md shadow-lg shadow-stone-600 transition transform ease-in-outease-in-out hover:scale-105 delay-150 hover:-translate-y-1 md:hover:scale-105 2xl:hover:scale-110 duration-300 text-base md:text-lg py-1 px-2 lg:text-xl xl:text-2xl 2xl:text-3xl 2xl:py-2 2xl:px-3"
+            >
+              MedBay
+            </NavLink>
+          </div>
+
+          <div className=" flex border-2 rounded-lg md:hidden">
+            <button
+              onClick={handleToggle}
+              className="inline-flex items-center justify-center p-1 rounded-md text-[#ffffff] hover:text-white hover:cursor-pointer focus:outline-none focus:ring-1 focus:ring-offset-1  focus:ring-white"
+            >
+              {isOpen ? (
+                <FaTimes onClick={handleToggle} className="text-[#060957]" />
+              ) : (
+                <FaBars onClick={handleToggle} className="text-[#060957]" />
+              )}
+            </button>
+          </div>
+
+          <div className="hidden md:block">
+            <div className="flex items-center">
               <NavLink
-                  to="/"
-                  className="text-white font-bold"
+                to="/create-exam"
+                onClick={handleMenuClick}
+                className="text-[#060957] font-bold font-ubuntu transition transform ease-in-out delay-150 hover:-translate-y-1 md:hover:scale-105 2xl:hover:scale-110 duration-300 md:text-base lg:text-lg xl:text-xl 2xl:text-2xl"
               >
-                MedBay
+                Create Exam
               </NavLink>
             </div>
-            <SearchMobile/>
-            <div className=" flex border-2 rounded-lg md:hidden">
-              <button
-                  onClick={handleToggle}
-                  className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
-              >
-                {isOpen ? (
-                    <FaTimes onClick={handleToggle} />
-                ) : (
-                    <FaBars onClick={handleToggle} />
-                )}
-              </button>
-            </div>
-
-            <div className="hidden md:block">
-              <div className="ml-4 flex items-center space-x-4 ">
-                <NavLink
-                    to="/create-exam"
-                    onClick={handleMenuClick}
-                    className="text-gray-300 hover:bg-gray-700 hover:text-white px-3 py-2 rounded-md text-sm md:text-base font-medium"
-                >
-                  Create Exam
-                </NavLink>
-              </div>
-            </div>
+          </div>
+        </nav>
+      {isOpen && (
+        <div className="md:hidden absolute top-0 right-0 w-full h-full mt-16 z-10">
+          <div className="flex flex-col items-end p-5 shadow-lg shadow-stone-600 bg-[#bed8fa] bg-opacity-30 backdrop-blur-lg  ">
+            <NavLink
+              to="/create-exam"
+              onClick={handleMenuClick}
+              className="block px-2.5 py-1 rounded-md shadow-lg shadow-stone-600 bg-[#ffffff] text-[#060957] text-sm font-bold  transition transform ease-in-out hover:scale-105 md:ease-in-out delay-150 hover:-translate-y-1 md:hover:scale-105 2xl:hover:scale-110 duration-300 hover:font-bold"
+            >
+              Create Exam
+            </NavLink>
           </div>
         </div>
-        {isOpen && (
-            <div className="md:hidden absolute top-0 right-0 w-full h-full z-10">
-              <div className="flex flex-col items-end mt-16 mr-4">
-                <NavLink
-                    to="/exams"
-                    onClick={handleMenuClick}
-                    className="text-gray-500 hover:text-gray-700  block px-3 py-2 rounded-md text-base font-medium mt-2"
-                >
-                  Exam
-                </NavLink>
-                <NavLink
-                    to="/admin"
-                    onClick={handleMenuClick}
-                    className="text-gray-500 hover:text-gray-700  block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Admin
-                </NavLink>
-                <NavLink
-                    to="/create-exam"
-                    onClick={handleMenuClick}
-                    className="text-gray-500 hover:text-gray-700  block px-3 py-2 rounded-md text-base font-medium"
-                >
-                  Create Exam
-                </NavLink>
-              </div>
-            </div>
-        )}
-        <Outlet/>
-      </nav>
+      )}
+      <Outlet />
+    </header>
   );
 };
-

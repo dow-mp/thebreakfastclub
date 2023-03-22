@@ -1,15 +1,24 @@
 import React from "react";
+import {GrTwitter, GrInstagram, GrFacebook} from "react-icons/gr"
 
 export const Footer = () => {
-let date = new Date();
-let year = date.getFullYear();
+  let date = new Date();
+  let year = date.getFullYear();
 
-    return (
-       
-        <footer className="p-3 w-full  md:flex md:items-center md:justify-center md:p-4 bg-gray-900 fixed bottom-0">
-            <span className=" text-zinc-50 text-center text-xs md:text-sm"> © {year} All Rights Reserved.
-            </span>  
-        </footer>
-
-    )
-}
+  return (
+    <footer
+      id="footer"
+      className=" bg-transparent  w-full flex items-center justify-between p-4 2xl:p-4 2xl:pt-6"
+    >
+      <div className="flex w-full justify-start pl-8">
+        <div className="  flex items-center w-3/4 ">
+          <span
+            className="font-bold text-[#060957] text-center md:text-start text-xs md:text-base lg:text-base xl:text-xl 2xl:text-base"
+          >
+            © {year} All Rights Reserved.
+          </span>
+        </div>
+      </div> 
+    </footer>
+  );
+};
