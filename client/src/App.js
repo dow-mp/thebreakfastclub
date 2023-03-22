@@ -8,7 +8,7 @@ import { Search } from "./components/Search/Search";
 const App = () => {
   return (
     <>
-            <div className=" flex flex-col h-screen w-screen justify-between bg-[#87D2E2]" >
+            <div className=" flex flex-col h-full w-full justify-between bg-[#87D2E2]" >
                 <div
                     id="header"
                     className=""
